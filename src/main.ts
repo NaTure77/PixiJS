@@ -21,8 +21,8 @@ export const app = new PIXI.Application({
 	resolution: window.devicePixelRatio || 1,
 	autoDensity: true,
 	backgroundColor: 0x666666,
-	width: 800,
-	height: 450,
+	width: window.innerWidth,
+	height: window.innerHeight,
 });
 
 //가장 기반이 되는 부분?
@@ -33,6 +33,8 @@ global.app = app;
 const container_1: PIXI.Container = new PIXI.Container();
 main();
 
+let width_default = 1920;
+let height_default = 1080;
 
 window.addEventListener('resize', resize);
 
@@ -47,15 +49,19 @@ function resize()
 	//세로가 더 긴 상황. 가로에 포커스.
 	if(screenRatio > screenRatio_bef)
 	{
-		container_1.width = width;
-		container_1.height = width * screenRatio_bef;
+		//container_1.width = width;
+		//container_1.height = width * screenRatio_bef;
+
+		container_1.scale.set(width / width_default);
 	}
 	else
 	{
-		container_1.height = height;
-		container_1.width = height / screenRatio_bef;
+		//container_1.height = height;
+		//container_1.width = height / screenRatio_bef;
+		container_1.scale.set(height / height_default);
 	}
 	app.renderer.resize(width, height);
+
 	container_1.position.set(app.screen.width / 2, app.screen.height / 2);
 }
 
@@ -111,6 +117,7 @@ async function main() {
 	const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
 	sprite_2.scale.set(0.35);
 	sprite_2.anchor.set(0.5);
+	sprite_2.position.set(-container_1.width / 2 + 100, container_1.height / 2 - 100);
 	container_1.addChild(sprite_2);
 	resize();
 	// container_2.addChild(sprite_2);
@@ -132,31 +139,33 @@ async function main() {
 
 
 	//텍스트 추가
-	// const style = new PIXI.TextStyle({
-	// 	fontFamily: 'DungGeunMo',
-	// 	fontSize: 36,
-	// 	fontStyle: 'italic',
-	// 	fontWeight: 'bold',
-	// 	fillGradientType: PIXI.TEXT_GRADIENT.LINEAR_HORIZONTAL,
-	// 	fillGradientStops: [0, 0.4],
-	// 	fill: ['#ffffff', '#00ff99'], // gradient
-	// 	stroke: '#4a1850',
-	// 	strokeThickness: 5,
-	// 	dropShadow: true,
-	// 	dropShadowColor: '#000000',
-	// 	dropShadowBlur: 4,
-	// 	dropShadowAngle: Math.PI / 6,
-	// 	dropShadowDistance: 6,
-	// 	wordWrap: true,
-	// 	wordWrapWidth: 100,
-	// 	lineJoin: 'round',
-	// });
+	const style = new PIXI.TextStyle({
+		fontFamily: 'DungGeunMo',
+		fontSize: 36,
+		//fontStyle: 'italic',
+		fontWeight: 'bold',
+		fillGradientType: PIXI.TEXT_GRADIENT.LINEAR_HORIZONTAL,
+		fillGradientStops: [0, 0.4],
+		fill: ['#ffffff', '#00ff99'], // gradient
+		stroke: '#4a1850',
+		strokeThickness: 5,
+		dropShadow: true,
+		dropShadowColor: '#000000',
+		dropShadowBlur: 4,
+		dropShadowAngle: Math.PI / 6,
+		dropShadowDistance: 6,
+		wordWrap: true,
+		wordWrapWidth: 100,
+		lineJoin: 'round',
+	});
 
-	// let str = '';
-	// const texty: PIXI.Text = new PIXI.Text(str, style);
-	// texty.position.set(100, 0);
+	 let str = '';
+	 const texty: PIXI.Text = new PIXI.Text(str, style);
+	 
+	 texty.pivot.set(0.0);
+	 texty.position.set(0);
 
-	// app.stage.addChildAt(texty, 0);
+	 app.stage.addChild(texty);
 
 	// 추가로 받은 에셋
 	// const t = new TaggedText('aaa <big>Big text</big> aaa', {
@@ -170,7 +179,7 @@ async function main() {
 	// 	},
 	// }); // renders "Big text" at 25px
 
-	// app.stage.addChild(t);
+	//  container_1.addChild(t);
 
 	//let text_size = 50;
 	//let is_ascending = true;
@@ -178,6 +187,9 @@ async function main() {
 	//myFilter.uniforms.Resolution = sprite_1.scale
 	// 업데이트 함수 등록.
 	// delta는 Time.deltaTime 역할.
+	var g_Time = 0;
+
+	let frameCnt = 0;
 	app.ticker.add((delta) => {
 		//text_size = is_ascending ? text_size + delta : text_size - delta;
 		//if (text_size > 100) is_ascending = false;
@@ -185,8 +197,25 @@ async function main() {
 
 		time += delta * 0.005;
 		time = time % 180;
+
+		frameCnt++;
+
+		if(frameCnt == 29)
+		{
+			g_Time = (new Date()).getTime();
+		}
+		else if(frameCnt == 30)
+		{
+			frameCnt = 0;
+			var timeNow = (new Date()).getTime();
+			var timeDiff = timeNow - g_Time;
+			texty.text = [...`${Math.floor(1000.0 / timeDiff)}`].join(' ');
+		}
+
 		myFilter.uniforms.utime = Math.sin(time * Math.PI / 180.0) * 400
 		sprite_2.rotation -= 0.01 * delta;
+
+		
 		//container_1.rotation -= 0.01 * delta;
 		// The change to the style wasn't detected. It still renders "Big text" at 25px
 		//t.tagStyles.big.fontSize = text_size; // 폰트 사이즈 변경.
