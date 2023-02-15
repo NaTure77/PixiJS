@@ -23,7 +23,7 @@ export const app = new PIXI.Application({
 	backgroundColor: 0x666666,
 	width: 800,
 	height: 450,
-}); 
+});
 
 //가장 기반이 되는 부분?
 //여기에 등록하면 어디에서든 접근 가능?
@@ -32,6 +32,9 @@ global.app = app;
 // main 함수 실행
 main();
 
+/**
+ * 메인 함수 실행
+ */
 async function main() {
 
 	// 비동기로 에셋을 불러옴.
@@ -63,6 +66,8 @@ async function main() {
 		uTintColor: [1, 0, 0, 1],
 		utime: 0,
 	});
+
+    container_1.filters = [myFilter];
 
 	// Apply the filter to the sprite
 
