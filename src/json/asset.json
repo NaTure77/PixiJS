@@ -22,6 +22,10 @@
                 {
                     "name": "DungGeunMo",
                     "srcs": "DungGeunMo.ttf"
+                },
+				{
+                    "name": "dark-blue",
+                    "srcs": "dark-blue-nawpic-2.jpg"
                 }
 			]
         },
