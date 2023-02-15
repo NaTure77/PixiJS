@@ -80,7 +80,7 @@ async function main() {
 	sprite_1.filters = [myFilter];
 
 	const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
-	sprite_2.scale.set(0.3);
+	sprite_2.scale.set(0.35);
 	sprite_2.anchor.set(0.5);
 	container_1.addChild(sprite_2);
 
