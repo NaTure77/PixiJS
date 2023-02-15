@@ -79,9 +79,10 @@ async function main() {
 	container_1.addChild(sprite_1);
 	sprite_1.filters = [myFilter];
 
-	// const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
-	// sprite_2.anchor.set(0.5);
-	// container_1.addChild(sprite_2);
+	const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
+	sprite_2.scale.set(0.3);
+	sprite_2.anchor.set(0.5);
+	container_1.addChild(sprite_2);
 
 	// container_2.addChild(sprite_2);
 
@@ -155,7 +156,7 @@ async function main() {
 
 		time += delta * 0.005;
 		myFilter.uniforms.utime = Math.sin(time * Math.PI / 180.0) * 400
-		//sprite_2.rotation -= 0.01 * delta;
+		sprite_2.rotation -= 0.01 * delta;
 		//container_1.rotation -= 0.01 * delta;
 		// The change to the style wasn't detected. It still renders "Big text" at 25px
 		//t.tagStyles.big.fontSize = text_size; // 폰트 사이즈 변경.

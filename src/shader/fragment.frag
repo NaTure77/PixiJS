@@ -105,8 +105,8 @@ vec4 sdf()
 
 
 void main() {
-    gl_FragColor = mandelbrot();
-    //gl_FragColor = sdf();
+    //gl_FragColor = mandelbrot();
+    gl_FragColor = sdf();
 
     //gl_FragColor = vec4(uv.x, uv.y, 0, 1);
     
