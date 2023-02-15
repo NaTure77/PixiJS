@@ -28,7 +28,6 @@ export const app = new PIXI.Application({
 //가장 기반이 되는 부분?
 //여기에 등록하면 어디에서든 접근 가능?
 global.app = app;
-
 // main 함수 실행
 const container_1: PIXI.Container = new PIXI.Container();
 main();
@@ -37,7 +36,9 @@ let width_default = 1920;
 let height_default = 1080;
 
 window.addEventListener('resize', resize);
-
+window.addEventListener('wheel', e=>{
+    e.preventDefault();
+}, {passive: false});
 function resize()
 {
 	let width = window.innerWidth;
@@ -209,7 +210,7 @@ async function main() {
 			frameCnt = 0;
 			var timeNow = (new Date()).getTime();
 			var timeDiff = timeNow - g_Time;
-			texty.text = [...`${Math.floor(1000.0 / timeDiff)}`].join(' ');
+			texty.text = sprite_1.width + "," + sprite_1.height + "\n FPS:" + Math.floor(1000.0 / timeDiff);
 		}
 
 		myFilter.uniforms.utime = Math.sin(time * Math.PI / 180.0) * 400
