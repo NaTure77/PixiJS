@@ -184,6 +184,7 @@ async function main() {
 		//if (text_size < 50) is_ascending = true;
 
 		time += delta * 0.005;
+		time = time % 180;
 		myFilter.uniforms.utime = Math.sin(time * Math.PI / 180.0) * 400
 		sprite_2.rotation -= 0.01 * delta;
 		//container_1.rotation -= 0.01 * delta;

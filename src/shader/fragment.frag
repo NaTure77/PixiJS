@@ -318,7 +318,7 @@ vec4 temple_main()
     //vec2 uv = (vTextureCoord - 0.5);
     float an = sin(utime*0.2)*0.5;
     float ra = 100.0;
-    float fl = 3.0;
+    float fl = 2.5;
     vec3 ta = vec3(0.0,-2.0,0.0);
     vec3 ro = ta + vec3(ra*sin(an),20.0,ra*cos(an));
      mat3 ca = setCamera( ro, ta, 0.0 );
