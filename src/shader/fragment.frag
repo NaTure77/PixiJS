@@ -80,7 +80,7 @@ float GetLight(vec3 p) {
 
 vec4 sdf()
 {
-    vec2 fragCoord = vec2((vTextureCoord.x - 0.5) / 450. * 800., 1. - vTextureCoord.y - 0.5);
+    vec2 fragCoord = vec2((vTextureCoord.x - 0.5) / 450. * 800. , 1. - vTextureCoord.y - 0.5);
     vec2 uv = fragCoord;//(fragCoord - 0.5);
     //vec2 uv = (vTextureCoord - 0.5);
 
@@ -108,12 +108,16 @@ void main() {
     //gl_FragColor = mandelbrot();
     gl_FragColor = sdf();
 
+    //vec2 uv = vTextureCoord / vec2(1920, 1080);
     //gl_FragColor = vec4(uv.x, uv.y, 0, 1);
     
     //if(vTextureCoord.x * vTextureCoord.x + vTextureCoord.y * vTextureCoord.y < 1. ) gl_FragColor = vec4(1.0);
     //else gl_FragColor = vec4(0,0,0,1);
    
+   //gl_FragColor = texture2D(uSampler, vTextureCoord);
    //if(vTextureCoord.x < 0.5)gl_FragColor = vec4(1, 0,0,1);
-    //else
-    // gl_FragColor = vec4(vTextureCoord.x,  1. - vTextureCoord.y, 0, 1);
+   // else
+   //  gl_FragColor = vec4(0, 1,0,1);
+     
+     //vec4(vTextureCoord.x,  1. - vTextureCoord.y, 0, 1);
 }

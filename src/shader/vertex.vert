@@ -17,5 +17,6 @@ vec2 filterTextureCoord(void) {
 
 void main(void) {
     gl_Position = filterVertexPosition();
-    vTextureCoord = filterTextureCoord();
+    //https://github.com/pixijs/pixijs/issues/6266
+    vTextureCoord = filterTextureCoord() * inputSize.xy / outputFrame.zw;
 }

@@ -30,7 +30,34 @@ export const app = new PIXI.Application({
 global.app = app;
 
 // main 함수 실행
+const container_1: PIXI.Container = new PIXI.Container();
 main();
+
+
+window.addEventListener('resize', resize);
+
+function resize()
+{
+	let width = window.innerWidth;
+	let height = window.innerHeight;
+
+	let screenRatio = height / width;
+	let screenRatio_bef = container_1.height / container_1.width;
+	
+	//세로가 더 긴 상황. 가로에 포커스.
+	if(screenRatio > screenRatio_bef)
+	{
+		container_1.width = width;
+		container_1.height = width * screenRatio_bef;
+	}
+	else
+	{
+		container_1.height = height;
+		container_1.width = height / screenRatio_bef;
+	}
+	app.renderer.resize(width, height);
+	container_1.position.set(app.screen.width / 2, app.screen.height / 2);
+}
 
 /**
  * 메인 함수 실행
@@ -41,10 +68,11 @@ async function main() {
     await load_all();
 	
 	//컨테이너: 위치, 크기 등 기본 값만있는 객체 껍데기.
-	const container_1: PIXI.Container = new PIXI.Container();
+	
 	container_1.scale.set(1);
 	container_1.position.set(app.screen.width / 2, app.screen.height / 2);
 	app.stage.addChild(container_1); //stage에 자식으로 추가. 
+	
 	// 모든게 2D로 동작.
 
 	// Container_2는 500, 250위치.
@@ -72,10 +100,11 @@ async function main() {
 	// sprite 소스는 id나 경로 등으로 부를 수 있음. 여기서는 id로 불러 옴.
 	// 컨테이너에 자식 추가 시 가장 마지막에 추가된 놈이 가장 위로 옴.
 	// 부모에 셰이더 걸면 자식들한테 전부 적용된다.
+
+	//rect.position.set(app.screen.width / 2, app.screen.height / 2);
+
 	const sprite_1: PIXI.Sprite = PIXI.Sprite.from("dark-blue");
 	sprite_1.anchor.set(0.5); //가운데 피벗.
-
-	sprite_1.scale.set(1 / 2.4);
 	container_1.addChild(sprite_1);
 	sprite_1.filters = [myFilter];
 
@@ -83,7 +112,7 @@ async function main() {
 	sprite_2.scale.set(0.35);
 	sprite_2.anchor.set(0.5);
 	container_1.addChild(sprite_2);
-
+	resize();
 	// container_2.addChild(sprite_2);
 
 	// Graphics는 기본 도형 그리는 도구.
