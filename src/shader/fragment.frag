@@ -7,8 +7,9 @@ uniform float utime;
 //https://www.shadertoy.com/view/XdtSRN
 vec4 mandelbrot()
 {
-    vec2 uv = (vTextureCoord * 2.0 - Resolution) * 2.0 / Resolution.x;
-    uv.y += Resolution.y * 0.5;
+    vec2 uv = (vTextureCoord - 0.5) * 4.0;
+    uv.y *= 450. / 800.;
+    //uv.y += Resolution.y * 0.5;
 
 
     vec2 z = vec2(uv);
@@ -104,8 +105,8 @@ vec4 sdf()
 
 
 void main() {
-    //gl_FragColor = mandelbrot();
-    gl_FragColor = sdf();
+    gl_FragColor = mandelbrot();
+    //gl_FragColor = sdf();
 
     //gl_FragColor = vec4(uv.x, uv.y, 0, 1);
     

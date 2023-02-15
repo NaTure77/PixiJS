@@ -67,8 +67,6 @@ async function main() {
 		utime: 0,
 	});
 
-    container_1.filters = [myFilter];
-
 	// Apply the filter to the sprite
 
 	// sprite 소스는 id나 경로 등으로 부를 수 있음. 여기서는 id로 불러 옴.
@@ -77,13 +75,13 @@ async function main() {
 	const sprite_1: PIXI.Sprite = PIXI.Sprite.from("dark-blue");
 	sprite_1.anchor.set(0.5); //가운데 피벗.
 
-	//sprite_1.scale.set(1 / 2.4);
+	sprite_1.scale.set(1 / 2.4);
 	container_1.addChild(sprite_1);
-	//sprite_1.filters = [myFilter];
+	sprite_1.filters = [myFilter];
 
-	 const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
-	 sprite_2.anchor.set(0.5);
-	 container_1.addChild(sprite_2);
+	// const sprite_2: PIXI.Sprite = PIXI.Sprite.from('hos');
+	// sprite_2.anchor.set(0.5);
+	// container_1.addChild(sprite_2);
 
 	// container_2.addChild(sprite_2);
 
@@ -157,7 +155,7 @@ async function main() {
 
 		time += delta * 0.005;
 		myFilter.uniforms.utime = Math.sin(time * Math.PI / 180.0) * 400
-		sprite_2.rotation -= 0.01 * delta;
+		//sprite_2.rotation -= 0.01 * delta;
 		//container_1.rotation -= 0.01 * delta;
 		// The change to the style wasn't detected. It still renders "Big text" at 25px
 		//t.tagStyles.big.fontSize = text_size; // 폰트 사이즈 변경.
