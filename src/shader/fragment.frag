@@ -7,10 +7,12 @@ in vec2 vTextureCoord;
 uniform float utime;
 out vec4 fragColor;
 //https://www.shadertoy.com/view/XdtSRN
-/*vec4 mandelbrot()
+vec4 mandelbrot()
 {
-    vec2 uv = (vTextureCoord - 0.5) * 4.0;
-    uv.y *= 450. / 800.;
+    vec2 fragCoord = vec2((vTextureCoord.x - 0.5) / 450. * 800. , 1. - vTextureCoord.y - 0.5);
+    vec2 uv = fragCoord;
+    //vec2 uv = (vTextureCoord - 0.5) * 4.0;
+    //uv.y *= 450. / 800.;
     //uv.y += Resolution.y * 0.5;
 
 
@@ -29,7 +31,7 @@ out vec4 fragColor;
     //float ret = float(_mandelbrot(uv));
     return vec4(sin(vec3(0.1, 0.2, 0.5) * ret), 1);
 }
-*/
+
 
 //https://www.shadertoy.com/view/XlGBW3
 /*float GetDist(vec3 p)
@@ -336,8 +338,8 @@ vec4 temple_main()
 }
 
 void main() {
-    //gl_FragColor = mandelbrot();
+    fragColor = mandelbrot();
     //gl_FragColor = sdf();
-    fragColor = temple_main();
+    //fragColor = temple_main();
     //gl_FragColor = vec4(1, 1,0,1);
 }
